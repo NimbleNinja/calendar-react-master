@@ -20,9 +20,28 @@ module.exports = (env, argv) => {
         {
           test: /.s?css$/,
           use: [
-            isProduction ? MiniCssExtractPlugin.loader : 'style-loader',
+            isProduction
+              ? [
+                  MiniCssExtractPlugin.loader,
+                  {
+                    loader: 'sass-resources-loader',
+                    options: {
+                      resources: [
+                        './path/to/vars.scss',
+                        './path/to/mixins.scss',
+                      ],
+                    },
+                  },
+                ]
+              : 'style-loader',
             'css-loader',
             'sass-loader',
+            {
+              loader: 'sass-resources-loader',
+              options: {
+                resources: ['./src/styles/variables.scss'],
+              },
+            },
           ],
         },
       ],
@@ -53,7 +72,7 @@ module.exports = (env, argv) => {
     config.plugins.push(
       new MiniCssExtractPlugin({
         filename: '[name].css',
-      }),
+      })
     );
   }
 
