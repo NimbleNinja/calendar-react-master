@@ -4,11 +4,10 @@ import Calendar from './components/calendar/Calendar';
 import Modal from './components/modal/Modal';
 import { getWeekStartDate, generateWeekRange } from './utils/dateUtils.js';
 import './styles/common.scss';
-import { fetchEvents, sendEventToServer } from './gateway/events';
+import { deleteEventFromServer, fetchEvents, sendEventToServer } from './gateway/events';
 
 const App = () => {
   const [weekStartDate, setWeekStartDate] = useState(new Date());
-  const weekDates = generateWeekRange(getWeekStartDate(weekStartDate));
 
   const showCurrentWeek = () => {
     setWeekStartDate(new Date());
@@ -61,8 +60,13 @@ const App = () => {
   };
 
   const deleteEvent = id => {
-    setAllevents(allEvents.filter(event => event.id !== id));
+    deleteEventFromServer(id).then(() => {
+      setAllevents(allEvents.filter(e => e.id !== id));
+    });
   };
+
+  // data
+  const weekDates = generateWeekRange(getWeekStartDate(weekStartDate));
 
   return (
     <>

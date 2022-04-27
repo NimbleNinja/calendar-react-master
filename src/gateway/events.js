@@ -54,4 +54,13 @@ export const sendEventToServer = event =>
     return null;
   });
 
-export const deleteEventFromServer = () => 's';
+export const deleteEventFromServer = id =>
+  fetch(`${url}/${id}`, {
+    method: 'DELETE',
+  }).then(response => {
+    if (response.ok) {
+      return response.json();
+    }
+
+    return null;
+  });
