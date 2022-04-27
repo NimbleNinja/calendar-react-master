@@ -1,8 +1,9 @@
 import React from 'react';
+import DeletePopup from './DeletePopup';
 
 import './event.scss';
 
-const Event = ({ height, marginTop, title, time }) => {
+const Event = ({ id, height, marginTop, title, time, deleteEvent }) => {
   const eventStyle = {
     height,
     marginTop,
@@ -12,6 +13,7 @@ const Event = ({ height, marginTop, title, time }) => {
     <div style={eventStyle} className="event">
       <div className="event__title">{title}</div>
       <div className="event__time">{time}</div>
+      <DeletePopup id={id} deleteEvent={deleteEvent} />
     </div>
   );
 };

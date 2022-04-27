@@ -6,13 +6,13 @@ import Sidebar from '../sidebar/Sidebar';
 
 import './calendar.scss';
 
-const Calendar = ({ weekDates, allEvents }) => (
+const Calendar = ({ weekDates, allEvents, deleteEvent }) => (
   <section className="calendar">
     <Navigation weekDates={weekDates} />
     <div className="calendar__body">
       <div className="calendar__week-container">
         <Sidebar />
-        <Week weekDates={weekDates} allEvents={allEvents} />
+        <Week deleteEvent={deleteEvent} weekDates={weekDates} allEvents={allEvents} />
       </div>
     </div>
   </section>

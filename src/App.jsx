@@ -42,6 +42,10 @@ const App = () => {
     setAllevents([...allEvents, eventData]);
   };
 
+  const deleteEvent = id => {
+    setAllevents(allEvents.filter(event => event.id !== id));
+  };
+
   return (
     <>
       <Header
@@ -50,7 +54,7 @@ const App = () => {
         switchWeek={switchWeek}
         showCurrentWeek={showCurrentWeek}
       />
-      <Calendar weekDates={weekDates} allEvents={allEvents} />
+      <Calendar deleteEvent={deleteEvent} weekDates={weekDates} allEvents={allEvents} />
       <Modal closeModal={closeModal} visible={isShowModal} createNewEvent={createNewEvent} />
     </>
   );
