@@ -4,7 +4,7 @@ const events = [
     title: 'Go to the gym',
     description: 'some text here',
     dateFrom: new Date(2022, 3, 26, 14, 10),
-    dateTo: new Date(2022, 3, 26, 15, 0),
+    dateTo: new Date(2022, 3, 26, 16, 0),
   },
   {
     id: 2,

@@ -30,17 +30,11 @@
     flex: 1;
   }
 
-  &__day {
-    position: relative;
-    flex: 1;
-    border-left: 1px solid #eee;
-  }
-
-  &__time-slot {
-    height: 59px;
-    position: relative;
-    border-bottom: 1px solid #eee;
-  }
+  //&__day {
+  //  position: relative;
+  //  flex: 1;
+  //  border-left: 1px solid #eee;
+  //}
 
   &__day-label {
     flex: 1;

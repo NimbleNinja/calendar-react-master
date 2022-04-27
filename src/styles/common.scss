@@ -9,10 +9,22 @@
 }
 
 .icon-button {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  background: #fff;
+  border-radius: 50%;
   outline: none;
   border: none;
   cursor: pointer;
-  background: transparent;
+
+  &:hover {
+    background: $main-color;
+  }
+
+  &:active {
+    background: $lines-color;
+  }
 }
 
 .modal {

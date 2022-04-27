@@ -3,7 +3,7 @@
   width: 80%;
   background-color: cornflowerblue;
   z-index: 1;
-  border-radius: 8px;
+  border-radius: 4px;
   padding: 8px;
   color: #fff;
 
@@ -13,11 +13,6 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     margin-bottom: 8px;
-  }
-
-  &:hover {
-    font-weight: bold;
-    background-color: red;
   }
 }
 

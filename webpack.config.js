@@ -26,10 +26,7 @@ module.exports = (env, argv) => {
                   {
                     loader: 'sass-resources-loader',
                     options: {
-                      resources: [
-                        './path/to/vars.scss',
-                        './path/to/mixins.scss',
-                      ],
+                      resources: ['./path/to/vars.scss', './path/to/mixins.scss'],
                     },
                   },
                 ]
@@ -72,7 +69,7 @@ module.exports = (env, argv) => {
     config.plugins.push(
       new MiniCssExtractPlugin({
         filename: '[name].css',
-      })
+      }),
     );
   }
 

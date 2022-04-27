@@ -1,15 +1,17 @@
 import React from 'react';
 
 import { days } from '../../utils/dateUtils.js';
+import DayLabel from './DayLabel.jsx';
 
 const Navigation = ({ weekDates }) => {
   return (
-    <header className='calendar__header'>
+    <header className="calendar__header">
       {weekDates.map(dayDate => (
-        <div key={Math.random()} className='calendar__day-label day-label'>
-          <span className='day-label__day-name'>{days[dayDate.getDay()]}</span>
-          <span className='day-label__day-number'>{dayDate.getDate()}</span>
-        </div>
+        <DayLabel
+          key={Math.random()}
+          dayName={days[dayDate.getDay()]}
+          dayNumber={dayDate.getDate()}
+        />
       ))}
     </header>
   );
