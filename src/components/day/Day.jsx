@@ -16,11 +16,11 @@ const Day = ({ dataDay, dayEvents, deleteEvent }) => {
 
         return (
           <Hour
-            dataDay={dataDay}
-            deleteEvent={deleteEvent}
             key={dataDay + hour}
+            day={dataDay}
             dataHour={hour}
             hourEvents={hourEvents}
+            deleteEvent={deleteEvent}
           />
         );
       })}

@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from './components/header/Header';
 import Calendar from './components/calendar/Calendar';
 import Modal from './components/modal/Modal';
 import { getWeekStartDate, generateWeekRange } from './utils/dateUtils.js';
 import './styles/common.scss';
-import events from './gateway/events';
+import { fetchEvents, sendEventToServer } from './gateway/events';
 
 const App = () => {
   const [weekStartDate, setWeekStartDate] = useState(new Date());
@@ -23,6 +23,7 @@ const App = () => {
     setWeekStartDate(newWeekStartDate);
   };
 
+  // modal
   const [isShowModal, setIsShowModal] = useState(false);
 
   const showModal = () => {
@@ -36,10 +37,27 @@ const App = () => {
     }
   };
 
-  const [allEvents, setAllevents] = useState(events);
+  // events
+  const [allEvents, setAllevents] = useState([]);
+
+  useEffect(() => {
+    fetchEvents().then(events => {
+      const eventsWithUpdatedDates = events.map(event => ({
+        ...event,
+        dateFrom: new Date(event.dateFrom),
+        dateTo: new Date(event.dateTo),
+      }));
+      setAllevents(eventsWithUpdatedDates);
+    });
+  }, []);
 
   const createNewEvent = eventData => {
-    setAllevents([...allEvents, eventData]);
+    sendEventToServer(eventData).then(event => {
+      setAllevents([
+        ...allEvents,
+        { ...event, dateFrom: new Date(event.dateFrom), dateTo: new Date(event.dateTo) },
+      ]);
+    });
   };
 
   const deleteEvent = id => {

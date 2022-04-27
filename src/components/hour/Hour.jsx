@@ -4,7 +4,7 @@ import { formatMins } from '../../utils/dateUtils.js';
 import RedLine from './RedLine';
 import './hour.scss';
 
-const Hour = ({ dataDay, dataHour, hourEvents, deleteEvent }) => {
+const Hour = ({ day, dataHour, hourEvents, deleteEvent }) => {
   const [redLineConditions, setlineConditions] = useState({
     currentHour: new Date().getHours(),
     currentMinutes: new Date().getMinutes(),
@@ -12,7 +12,6 @@ const Hour = ({ dataDay, dataHour, hourEvents, deleteEvent }) => {
 
   useEffect(() => {
     const updateRedLineConditions = setInterval(() => {
-      console.log('work');
       setlineConditions({
         currentHour: new Date().getHours(),
         currentMinutes: new Date().getMinutes(),
@@ -25,7 +24,7 @@ const Hour = ({ dataDay, dataHour, hourEvents, deleteEvent }) => {
   }, []);
 
   const { currentMinutes, currentHour } = redLineConditions;
-  const showLineCondition = new Date().getDate() === dataDay && currentHour === dataHour;
+  const showLineCondition = new Date().getDate() === day && currentHour === dataHour;
 
   return (
     <div className="calendar__time-slot" data-time={dataHour + 1}>

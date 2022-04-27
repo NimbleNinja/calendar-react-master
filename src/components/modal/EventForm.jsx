@@ -13,11 +13,10 @@ const EventForm = ({ createNewEvent, closeModal }) => {
     e.preventDefault();
     const { title, description, date, startTime, endTime } = eventData;
     const newEvent = {
-      id: Math.random(),
       title,
       description,
-      dateFrom: new Date(`${date} ${startTime}`),
-      dateTo: new Date(`${date} ${endTime}`),
+      dateFrom: new Date(`${date} ${startTime}`).getTime(),
+      dateTo: new Date(`${date} ${endTime}`).getTime(),
     };
 
     createNewEvent(newEvent);
