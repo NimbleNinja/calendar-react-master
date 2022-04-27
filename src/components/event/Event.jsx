@@ -10,12 +10,8 @@ const Event = ({ id, height, marginTop, title, time, deleteEvent }) => {
     marginTop,
   };
 
-  const showDeletePopupHandler = () => {
-    setIsShowPopup(true);
-  };
-
   return (
-    <div onClick={showDeletePopupHandler} style={eventStyle} className="event">
+    <div onClick={() => setIsShowPopup(!isShowPopup)} style={eventStyle} className="event">
       <div className="event__title">{title}</div>
       <div className="event__time">{time}</div>
       <DeletePopup visible={isShowPopup} id={id} deleteEvent={deleteEvent} />
