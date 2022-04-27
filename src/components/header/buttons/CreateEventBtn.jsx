@@ -1,8 +1,10 @@
 import React from 'react';
 import './buttons.scss';
 
-const CreateEventBtn = () => {
-  return <button className="create-event-btn">+</button>;
-};
+const CreateEventBtn = ({ showModal }) => (
+  <button onClick={showModal} className="create-event-btn">
+    +
+  </button>
+);
 
 export default CreateEventBtn;

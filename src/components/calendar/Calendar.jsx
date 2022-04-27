@@ -5,11 +5,9 @@ import Week from '../week/Week';
 import Sidebar from '../sidebar/Sidebar';
 
 import './calendar.scss';
-// import Modal from '../modal/Modal';
 
 const Calendar = ({ weekDates }) => (
   <section className="calendar">
-    {/* <Modal /> */}
     <Navigation weekDates={weekDates} />
     <div className="calendar__body">
       <div className="calendar__week-container">

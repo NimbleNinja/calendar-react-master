@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import Header from './components/header/Header.jsx';
-import Calendar from './components/calendar/Calendar.jsx';
-
+import Header from './components/header/Header';
+import Calendar from './components/calendar/Calendar';
+import Modal from './components/modal/Modal';
 import { getWeekStartDate, generateWeekRange } from './utils/dateUtils.js';
 
 import './styles/common.scss';
@@ -9,6 +9,18 @@ import './styles/common.scss';
 const App = () => {
   const [weekStartDate, setWeekStartDate] = useState(new Date());
   const weekDates = generateWeekRange(getWeekStartDate(weekStartDate));
+
+  const [isShowModal, setIsShowModal] = useState(false);
+
+  const showModal = () => {
+    setIsShowModal(true);
+  };
+  const closeModal = e => {
+    const { canDelete } = e.target.dataset;
+    if (canDelete) {
+      setIsShowModal(false);
+    }
+  };
 
   const showCurrentWeek = () => {
     setWeekStartDate(new Date());
@@ -24,8 +36,14 @@ const App = () => {
 
   return (
     <>
-      <Header weekDates={weekDates} switchWeek={switchWeek} showCurrentWeek={showCurrentWeek} />
+      <Header
+        showModal={showModal}
+        weekDates={weekDates}
+        switchWeek={switchWeek}
+        showCurrentWeek={showCurrentWeek}
+      />
       <Calendar weekDates={weekDates} />
+      <Modal closeModal={closeModal} visible={isShowModal} />
     </>
   );
 };

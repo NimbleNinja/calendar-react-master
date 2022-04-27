@@ -2,17 +2,18 @@ import React from 'react';
 import EventForm from './EventForm';
 import './modal.scss';
 
-const Modal = () => {
-  return (
-    <div className="modal overlay">
+const Modal = ({ visible, closeModal }) =>
+  visible ? (
+    <div onClick={closeModal} data-can-delete className="modal overlay">
       <div className="modal__content">
         <div className="create-event">
-          <button className="create-event__close-btn">+</button>
+          <button onClick={closeModal} data-can-delete className="create-event__close-btn">
+            +
+          </button>
           <EventForm />
         </div>
       </div>
     </div>
-  );
-};
+  ) : null;
 
 export default Modal;

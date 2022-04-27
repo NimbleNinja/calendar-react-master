@@ -44,7 +44,7 @@ export const months = [
   'December',
 ];
 
-export const getcurrentMonths = dates =>
+export const getCurrentMonths = dates =>
   dates
     .map(date => months[date.getMonth()])
     .reduce(
