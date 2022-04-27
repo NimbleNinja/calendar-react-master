@@ -10,6 +10,10 @@ const App = () => {
   const [weekStartDate, setWeekStartDate] = useState(new Date());
   const weekDates = generateWeekRange(getWeekStartDate(weekStartDate));
 
+  const showCurrentWeek = () => {
+    setWeekStartDate(new Date());
+  };
+
   const switchWeek = e => {
     const { direction } = e.target.closest('.navigation__nav-icon').dataset;
     const difference = direction === 'future' ? 7 : -7;
@@ -20,7 +24,7 @@ const App = () => {
 
   return (
     <>
-      <Header switchWeek={switchWeek} />
+      <Header switchWeek={switchWeek} showCurrentWeek={showCurrentWeek} />
       <Calendar weekDates={weekDates} />
     </>
   );

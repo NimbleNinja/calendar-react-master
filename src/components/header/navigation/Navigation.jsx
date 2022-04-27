@@ -1,9 +1,11 @@
 import React from 'react';
 import './navigation.scss';
 
-const Navigation = ({ switchWeek }) => (
+const Navigation = ({ switchWeek, showCurrentWeek }) => (
   <div className="navigation">
-    <button className="navigation__today-btn button">Today</button>
+    <button onClick={showCurrentWeek} className="navigation__today-btn button">
+      Today
+    </button>
     <button
       onClick={switchWeek}
       data-direction={'past'}
