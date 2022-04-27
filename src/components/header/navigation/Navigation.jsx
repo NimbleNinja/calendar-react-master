@@ -1,7 +1,8 @@
 import React from 'react';
 import './navigation.scss';
+import { getcurrentMonths } from '../../../utils/dateUtils';
 
-const Navigation = ({ switchWeek, showCurrentWeek }) => (
+const Navigation = ({ weekDates, switchWeek, showCurrentWeek }) => (
   <div className="navigation">
     <button onClick={showCurrentWeek} className="navigation__today-btn button">
       Today
@@ -20,7 +21,7 @@ const Navigation = ({ switchWeek, showCurrentWeek }) => (
     >
       <i className="fas fa-chevron-right" />
     </button>
-    <span className="navigation__displayed-month"></span>
+    <span className="navigation__displayed-month">{getcurrentMonths(weekDates).join(' - ')}</span>
   </div>
 );
 

@@ -24,7 +24,7 @@ const App = () => {
 
   return (
     <>
-      <Header switchWeek={switchWeek} showCurrentWeek={showCurrentWeek} />
+      <Header weekDates={weekDates} switchWeek={switchWeek} showCurrentWeek={showCurrentWeek} />
       <Calendar weekDates={weekDates} />
     </>
   );

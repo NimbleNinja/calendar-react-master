@@ -6,11 +6,11 @@ import CreateEventBtn from './buttons/CreateEventBtn';
 import Navigation from './navigation/Navigation';
 import User from './user/User';
 
-const Header = ({ switchWeek, showCurrentWeek }) => (
+const Header = ({ weekDates, switchWeek, showCurrentWeek }) => (
   <header className="header">
     <HeaderTitle />
     <CreateEventBtn />
-    <Navigation switchWeek={switchWeek} showCurrentWeek={showCurrentWeek} />
+    <Navigation weekDates={weekDates} switchWeek={switchWeek} showCurrentWeek={showCurrentWeek} />
     <User />
   </header>
 );
