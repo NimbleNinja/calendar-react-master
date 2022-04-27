@@ -20,17 +20,7 @@ module.exports = (env, argv) => {
         {
           test: /.s?css$/,
           use: [
-            isProduction
-              ? [
-                  MiniCssExtractPlugin.loader,
-                  {
-                    loader: 'sass-resources-loader',
-                    options: {
-                      resources: ['./path/to/vars.scss', './path/to/mixins.scss'],
-                    },
-                  },
-                ]
-              : 'style-loader',
+            isProduction ? MiniCssExtractPlugin.loader : 'style-loader',
             'css-loader',
             'sass-loader',
             {
