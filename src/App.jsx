@@ -3,24 +3,12 @@ import Header from './components/header/Header';
 import Calendar from './components/calendar/Calendar';
 import Modal from './components/modal/Modal';
 import { getWeekStartDate, generateWeekRange } from './utils/dateUtils.js';
-
 import './styles/common.scss';
+import events from './gateway/events';
 
 const App = () => {
   const [weekStartDate, setWeekStartDate] = useState(new Date());
   const weekDates = generateWeekRange(getWeekStartDate(weekStartDate));
-
-  const [isShowModal, setIsShowModal] = useState(false);
-
-  const showModal = () => {
-    setIsShowModal(true);
-  };
-  const closeModal = e => {
-    const { canDelete } = e.target.dataset;
-    if (canDelete) {
-      setIsShowModal(false);
-    }
-  };
 
   const showCurrentWeek = () => {
     setWeekStartDate(new Date());
@@ -30,8 +18,28 @@ const App = () => {
     const { direction } = e.target.closest('.navigation__nav-icon').dataset;
     const difference = direction === 'future' ? 7 : -7;
     const currentDay = weekStartDate.getDate();
-    const newWeekStartDate = new Date(weekStartDate.setDate(currentDay + difference));
+    const copyWeekStartDate = new Date(weekStartDate);
+    const newWeekStartDate = new Date(copyWeekStartDate.setDate(currentDay + difference));
     setWeekStartDate(newWeekStartDate);
+  };
+
+  const [isShowModal, setIsShowModal] = useState(false);
+
+  const showModal = () => {
+    setIsShowModal(true);
+  };
+
+  const closeModal = e => {
+    const { canDelete } = e.target.dataset;
+    if (canDelete) {
+      setIsShowModal(false);
+    }
+  };
+
+  const [allEvents, setAllevents] = useState(events);
+
+  const createNewEvent = eventData => {
+    setAllevents([...allEvents, eventData]);
   };
 
   return (
@@ -42,8 +50,8 @@ const App = () => {
         switchWeek={switchWeek}
         showCurrentWeek={showCurrentWeek}
       />
-      <Calendar weekDates={weekDates} />
-      <Modal closeModal={closeModal} visible={isShowModal} />
+      <Calendar weekDates={weekDates} allEvents={allEvents} />
+      <Modal closeModal={closeModal} visible={isShowModal} createNewEvent={createNewEvent} />
     </>
   );
 };

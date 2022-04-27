@@ -1,24 +1,84 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-const EventForm = () => (
-  <form className="event-form">
-    <input type="text" name="title" placeholder="Title" className="event-form__field" />
-    <div className="event-form__time">
-      <input type="date" name="date" className="event-form__field" />
+const EventForm = ({ createNewEvent, closeModal }) => {
+  const [eventData, setEventData] = useState({
+    title: '',
+    description: '',
+    date: '',
+    startTime: '',
+    endTime: '',
+  });
+
+  const submitEventFormHandler = e => {
+    e.preventDefault();
+    const { title, description, date, startTime, endTime } = eventData;
+    const newEvent = {
+      id: Math.random(),
+      title,
+      description,
+      dateFrom: new Date(`${date} ${startTime}`),
+      dateTo: new Date(`${date} ${endTime}`),
+    };
+
+    createNewEvent(newEvent);
+    closeModal(e);
+  };
+
+  const changeInputHandler = e => {
+    const { name, value } = e.target;
+    setEventData({
+      ...eventData,
+      [name]: value,
+    });
+  };
+
+  return (
+    <form className="event-form" onSubmit={submitEventFormHandler} data-can-delete>
       <input
-        type="time"
-        name="startTime"
+        value={eventData.title}
+        onChange={changeInputHandler}
+        type="text"
+        name="title"
+        placeholder="Title"
         className="event-form__field"
-        // onChange={this.handleChange}
       />
-      <span>-</span>
-      <input type="time" name="endTime" className="event-form__field" />
-    </div>
-    <textarea name="description" placeholder="Description" className="event-form__field"></textarea>
-    <button type="submit" className="event-form__submit-btn">
-      Create
-    </button>
-  </form>
-);
+      <div className="event-form__time">
+        <input
+          value={eventData.date}
+          onChange={changeInputHandler}
+          type="date"
+          name="date"
+          className="event-form__field"
+        />
+        <input
+          value={eventData.startTime}
+          onChange={changeInputHandler}
+          type="time"
+          name="startTime"
+          className="event-form__field"
+          // onChange={this.handleChange}
+        />
+        <span>-</span>
+        <input
+          value={eventData.endTime}
+          onChange={changeInputHandler}
+          type="time"
+          name="endTime"
+          className="event-form__field"
+        />
+      </div>
+      <textarea
+        value={eventData.description}
+        onChange={changeInputHandler}
+        name="description"
+        placeholder="Description"
+        className="event-form__field"
+      ></textarea>
+      <button type="submit" className="event-form__submit-btn">
+        Create
+      </button>
+    </form>
+  );
+};
 
 export default EventForm;
