@@ -8,6 +8,7 @@ import { deleteEventFromServer, fetchEvents, sendEventToServer } from './gateway
 
 const App = () => {
   const [weekStartDate, setWeekStartDate] = useState(new Date());
+  const weekDates = generateWeekRange(getWeekStartDate(weekStartDate));
 
   const showCurrentWeek = () => {
     setWeekStartDate(new Date());
@@ -16,6 +17,7 @@ const App = () => {
   const switchWeek = e => {
     const { direction } = e.target.closest('.navigation__nav-icon').dataset;
     const difference = direction === 'future' ? 7 : -7;
+
     const currentDay = weekStartDate.getDate();
     const copyWeekStartDate = new Date(weekStartDate);
     const newWeekStartDate = new Date(copyWeekStartDate.setDate(currentDay + difference));
@@ -41,6 +43,9 @@ const App = () => {
 
   useEffect(() => {
     fetchEvents().then(events => {
+      if (!events) {
+        return;
+      }
       const eventsWithUpdatedDates = events.map(event => ({
         ...event,
         dateFrom: new Date(event.dateFrom),
@@ -52,6 +57,10 @@ const App = () => {
 
   const createNewEvent = eventData => {
     sendEventToServer(eventData).then(event => {
+      if (!event) {
+        return;
+      }
+
       setAllevents([
         ...allEvents,
         { ...event, dateFrom: new Date(event.dateFrom), dateTo: new Date(event.dateTo) },
@@ -64,9 +73,6 @@ const App = () => {
       setAllevents(allEvents.filter(e => e.id !== id));
     });
   };
-
-  // data
-  const weekDates = generateWeekRange(getWeekStartDate(weekStartDate));
 
   return (
     <>
