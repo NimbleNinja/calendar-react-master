@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const DeletePopup = ({ visible, deleteEvent, id }) => {
   const deleteEventHandler = () => {
@@ -12,3 +13,9 @@ const DeletePopup = ({ visible, deleteEvent, id }) => {
 };
 
 export default DeletePopup;
+
+Event.propTypes = {
+  id: PropTypes.string,
+  visible: PropTypes.bool,
+  deleteEvent: PropTypes.func,
+};

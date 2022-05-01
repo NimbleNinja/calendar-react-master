@@ -25,7 +25,7 @@ module.exports = {
     'import/no-extraneous-dependencies': 0,
     'arrow-body-style': 1,
     'prefer-arrow-callback': 1,
-    "treatUndefinedAsUnspecified": true
+    "treatUndefinedAsUnspecified": 0
   },
   settings: {
     'import/resolver': {

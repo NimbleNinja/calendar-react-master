@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import DeletePopup from './DeletePopup';
-
 import './event.scss';
 
 const Event = ({ id, height, marginTop, title, time, deleteEvent }) => {
@@ -20,3 +20,12 @@ const Event = ({ id, height, marginTop, title, time, deleteEvent }) => {
 };
 
 export default Event;
+
+Event.propTypes = {
+  id: PropTypes.string,
+  height: PropTypes.number,
+  marginTop: PropTypes.number,
+  title: PropTypes.string,
+  time: PropTypes.string,
+  deleteEvent: PropTypes.func,
+};

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 
 const EventForm = ({ createNewEvent, closeModal }) => {
   const [eventData, setEventData] = useState({
@@ -55,7 +56,6 @@ const EventForm = ({ createNewEvent, closeModal }) => {
           type="time"
           name="startTime"
           className="event-form__field"
-          // onChange={this.handleChange}
         />
         <span>-</span>
         <input
@@ -81,3 +81,8 @@ const EventForm = ({ createNewEvent, closeModal }) => {
 };
 
 export default EventForm;
+
+EventForm.propTypes = {
+  closeModal: PropTypes.func,
+  createNewEvent: PropTypes.func,
+};

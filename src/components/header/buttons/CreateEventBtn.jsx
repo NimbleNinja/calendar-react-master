@@ -1,5 +1,6 @@
 import React from 'react';
 import './buttons.scss';
+import PropTypes from 'prop-types';
 
 const CreateEventBtn = ({ showModal }) => (
   <button onClick={showModal} className="create-event-btn">
@@ -8,3 +9,7 @@ const CreateEventBtn = ({ showModal }) => (
 );
 
 export default CreateEventBtn;
+
+CreateEventBtn.propTypes = {
+  showModal: PropTypes.func,
+};
