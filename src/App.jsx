@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Header from './components/header/Header';
 import Calendar from './components/calendar/Calendar';
-import { getWeekStartDate, generateWeekRange } from './utils/dateUtils.js';
+import { getWeekStartDate, generateWeekRange, getCurrentWeekEvents } from './utils/dateUtils.js';
 import { deleteEventFromServer, fetchEvents, sendEventToServer } from './gateway/events';
 import './styles/common.scss';
 
@@ -30,20 +30,16 @@ const App = () => {
       if (!events) {
         return;
       }
+
       const eventsWithCorrectDates = events.map(event => ({
         ...event,
         dateFrom: new Date(event.dateFrom),
         dateTo: new Date(event.dateTo),
       }));
-      // .filter(event => {
-      //  const startOfWeek = event.dateFrom >= weekStartDate;
-      //  // const endOfWeek = event.dateTo <= ;
-      //  const endOfWeek = new Date(weekStartDate).add;
-      // });
 
-      setAllevents(eventsWithCorrectDates);
+      setAllevents(getCurrentWeekEvents(eventsWithCorrectDates, weekStartDate));
     });
-  }, []);
+  }, [weekStartDate]);
 
   const createNewEvent = eventData => {
     sendEventToServer(eventData).then(event => {

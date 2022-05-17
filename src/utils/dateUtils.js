@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 export const getWeekStartDate = date => {
   const dateCopy = new Date(date);
   const dayOfWeek = dateCopy.getDay();
@@ -41,3 +43,15 @@ export const getCurrentMonths = dates =>
       (monthsArr, month) => (monthsArr.includes(month) ? monthsArr : [...monthsArr, month]),
       [],
     );
+
+export const getCurrentWeekEvents = (events, weekStartDate) => {
+  const startOfWeek = moment(weekStartDate).startOf('week').add(1, 'day');
+  const endOfWeek = moment(weekStartDate).endOf('week').add(1, 'day');
+
+  return events.filter(event => {
+    const eventStartDate = moment(event.dateFrom);
+    const eventEndDate = moment(event.dateFrom);
+
+    return eventStartDate >= startOfWeek && eventEndDate <= endOfWeek;
+  });
+};
