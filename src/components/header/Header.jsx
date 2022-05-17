@@ -7,7 +7,7 @@ import User from './user/User';
 import Modal from '../modal/Modal';
 import './header.scss';
 
-const Header = ({ weekDates, switchWeek, showCurrentWeek, createNewEvent }) => {
+const Header = ({ weekDates, goToNextWeek, goToPrevWeek, showCurrentWeek, createNewEvent }) => {
   const [modalVisibility, setModalVisibility] = useState(false);
 
   const showModal = () => {
@@ -25,7 +25,12 @@ const Header = ({ weekDates, switchWeek, showCurrentWeek, createNewEvent }) => {
     <header className="header">
       <HeaderTitle />
       <CreateEventBtn showModal={showModal} />
-      <Navigation weekDates={weekDates} switchWeek={switchWeek} showCurrentWeek={showCurrentWeek} />
+      <Navigation
+        weekDates={weekDates}
+        goToNextWeek={goToNextWeek}
+        goToPrevWeek={goToPrevWeek}
+        showCurrentWeek={showCurrentWeek}
+      />
       <User />
       <Modal visible={modalVisibility} createNewEvent={createNewEvent} closeModal={closeModal} />
     </header>
@@ -36,7 +41,8 @@ export default Header;
 
 Header.propTypes = {
   weekDates: PropTypes.array,
-  switchWeek: PropTypes.func,
+  goToPrevWeek: PropTypes.func,
+  goToNextWeek: PropTypes.func,
   showCurrentWeek: PropTypes.func,
   createNewEvent: PropTypes.func,
 };

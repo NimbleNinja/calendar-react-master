@@ -9,16 +9,17 @@ const App = () => {
   const [weekStartDate, setWeekStartDate] = useState(new Date());
   const weekDates = generateWeekRange(getWeekStartDate(weekStartDate));
 
-  const showCurrentWeek = () => {
-    setWeekStartDate(new Date());
-  };
-
-  const switchWeek = e => {
-    const { direction } = e.target.closest('.navigation__nav-icon').dataset;
-    const difference = direction === 'future' ? 7 : -7;
+  const goToNextWeek = () => {
     const currentDay = weekStartDate.getDate();
     const copyWeekStartDate = new Date(weekStartDate);
-    const newWeekStartDate = new Date(copyWeekStartDate.setDate(currentDay + difference));
+    const newWeekStartDate = new Date(copyWeekStartDate.setDate(currentDay + 7));
+    setWeekStartDate(newWeekStartDate);
+  };
+
+  const goToPrevWeek = () => {
+    const currentDay = weekStartDate.getDate();
+    const copyWeekStartDate = new Date(weekStartDate);
+    const newWeekStartDate = new Date(copyWeekStartDate.setDate(currentDay - 7));
     setWeekStartDate(newWeekStartDate);
   };
 
@@ -29,12 +30,18 @@ const App = () => {
       if (!events) {
         return;
       }
-      const eventsWithUpdatedDates = events.map(event => ({
+      const eventsWithCorrectDates = events.map(event => ({
         ...event,
         dateFrom: new Date(event.dateFrom),
         dateTo: new Date(event.dateTo),
       }));
-      setAllevents(eventsWithUpdatedDates);
+      // .filter(event => {
+      //  const startOfWeek = event.dateFrom >= weekStartDate;
+      //  // const endOfWeek = event.dateTo <= ;
+      //  const endOfWeek = new Date(weekStartDate).add;
+      // });
+
+      setAllevents(eventsWithCorrectDates);
     });
   }, []);
 
@@ -62,8 +69,9 @@ const App = () => {
       <Header
         createNewEvent={createNewEvent}
         weekDates={weekDates}
-        switchWeek={switchWeek}
-        showCurrentWeek={showCurrentWeek}
+        goToNextWeek={goToNextWeek}
+        goToPrevWeek={goToPrevWeek}
+        showCurrentWeek={() => setWeekStartDate(new Date())}
       />
       <Calendar deleteEvent={deleteEvent} weekDates={weekDates} allEvents={allEvents} />
     </>

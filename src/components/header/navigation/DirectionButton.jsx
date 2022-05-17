@@ -1,12 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const DirectionButton = ({ direction, switchWeek, directionClass }) => (
-  <button
-    onClick={switchWeek}
-    data-direction={direction}
-    className="icon-button navigation__nav-icon"
-  >
+const DirectionButton = ({ switchWeek, directionClass }) => (
+  <button onClick={switchWeek} className="icon-button navigation__nav-icon">
     <i className={`fas fa-chevron-${directionClass}`} />
   </button>
 );
