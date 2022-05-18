@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 const url = 'https://6230a0d6f113bfceed572660.mockapi.io/todolist/events';
 
 export const fetchEvents = () =>
@@ -8,11 +10,18 @@ export const fetchEvents = () =>
       }
       throw new Error();
     })
+    .then(events =>
+      events.map(event => ({
+        ...event,
+        dateFrom: new Date(event.dateFrom),
+        dateTo: new Date(event.dateTo),
+      })),
+    )
     .catch(() => {
       alert("Internal Server Error. Can't display events");
     });
 
-export const sendEventToServer = event =>
+export const addEvent = event =>
   fetch(url, {
     method: 'POST',
     headers: {
@@ -30,7 +39,7 @@ export const sendEventToServer = event =>
       alert("Internal Server Error. Can't display events");
     });
 
-export const deleteEventFromServer = id =>
+export const removeEvent = id =>
   fetch(`${url}/${id}`, {
     method: 'DELETE',
   })
@@ -43,3 +52,10 @@ export const deleteEventFromServer = id =>
     .catch(() => {
       alert("Internal Server Error. Can't display events");
     });
+
+export const getCurrentWeekEvents = (events, weekStartDate) => {
+  const startOfWeek = moment(weekStartDate).startOf('week').add(1, 'day');
+  const endOfWeek = moment(weekStartDate).endOf('week').add(1, 'day');
+
+  return events.filter(({ dateFrom, dateTo }) => dateFrom >= startOfWeek && dateTo <= endOfWeek);
+};

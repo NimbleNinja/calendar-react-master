@@ -1,26 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import Header from './components/header/Header';
 import Calendar from './components/calendar/Calendar';
-import { getWeekStartDate, generateWeekRange, getCurrentWeekEvents } from './utils/dateUtils.js';
-import { deleteEventFromServer, fetchEvents, sendEventToServer } from './gateway/events';
+import { getWeekStartDate, generateWeekRange } from './utils/dateUtils.js';
+import { removeEvent, fetchEvents, getCurrentWeekEvents, addEvent } from './gateway/events';
 import './styles/common.scss';
 
 const App = () => {
   const [weekStartDate, setWeekStartDate] = useState(new Date());
   const weekDates = generateWeekRange(getWeekStartDate(weekStartDate));
 
-  const goToNextWeek = () => {
-    const currentDay = weekStartDate.getDate();
+  const goToNextWeekHandler = () => {
     const copyWeekStartDate = new Date(weekStartDate);
-    const newWeekStartDate = new Date(copyWeekStartDate.setDate(currentDay + 7));
-    setWeekStartDate(newWeekStartDate);
+    setWeekStartDate(new Date(copyWeekStartDate.setDate(weekStartDate.getDate() + 7)));
   };
 
-  const goToPrevWeek = () => {
-    const currentDay = weekStartDate.getDate();
+  const goToPrevWeekHandler = () => {
     const copyWeekStartDate = new Date(weekStartDate);
-    const newWeekStartDate = new Date(copyWeekStartDate.setDate(currentDay - 7));
-    setWeekStartDate(newWeekStartDate);
+    setWeekStartDate(new Date(copyWeekStartDate.setDate(weekStartDate.getDate() - 7)));
   };
 
   const [allEvents, setAllevents] = useState([]);
@@ -31,18 +27,12 @@ const App = () => {
         return;
       }
 
-      const eventsWithCorrectDates = events.map(event => ({
-        ...event,
-        dateFrom: new Date(event.dateFrom),
-        dateTo: new Date(event.dateTo),
-      }));
-
-      setAllevents(getCurrentWeekEvents(eventsWithCorrectDates, weekStartDate));
+      setAllevents(getCurrentWeekEvents(events, weekStartDate));
     });
   }, [weekStartDate]);
 
   const createNewEvent = eventData => {
-    sendEventToServer(eventData).then(event => {
+    addEvent(eventData).then(event => {
       if (!event) {
         return;
       }
@@ -55,7 +45,7 @@ const App = () => {
   };
 
   const deleteEvent = id => {
-    deleteEventFromServer(id).then(() => {
+    removeEvent(id).then(() => {
       setAllevents(allEvents.filter(e => e.id !== id));
     });
   };
@@ -65,8 +55,8 @@ const App = () => {
       <Header
         createNewEvent={createNewEvent}
         weekDates={weekDates}
-        goToNextWeek={goToNextWeek}
-        goToPrevWeek={goToPrevWeek}
+        goToNextWeek={goToNextWeekHandler}
+        goToPrevWeek={goToPrevWeekHandler}
         showCurrentWeek={() => setWeekStartDate(new Date())}
       />
       <Calendar deleteEvent={deleteEvent} weekDates={weekDates} allEvents={allEvents} />

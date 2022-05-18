@@ -26,3 +26,33 @@
     margin-left: auto;
   }
 }
+
+.create-event-btn {
+  width: 40px;
+  height: 40px;
+  background: #fff;
+  border: none;
+  border-radius: 50%;
+  box-shadow: $btn-shadow;
+  font-size: 24px;
+  line-height: 40px;
+  color: orange;
+  transition-property: box-shadow;
+  transition-duration: 0.5s;
+  transition-timing-function: ease;
+
+  &:hover {
+    box-shadow: $btn-shadow-hover;
+  }
+
+  &:active {
+    background: $lines-color;
+  }
+}
+
+.user {
+  &__icon {
+    width: 40px;
+    height: 40px;
+  }
+}
