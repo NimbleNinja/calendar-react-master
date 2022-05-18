@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Header from './components/header/Header';
 import Calendar from './components/calendar/Calendar';
 import { getWeekStartDate, generateWeekRange } from './utils/dateUtils.js';
-import { removeEvent, fetchEvents, getCurrentWeekEvents, addEvent } from './gateway/events';
+import { removeEvent, fetchEvents, addEvent } from './gateway/events';
 import './styles/common.scss';
 
 const App = () => {
@@ -22,12 +22,12 @@ const App = () => {
   const [allEvents, setAllevents] = useState([]);
 
   useEffect(() => {
-    fetchEvents().then(events => {
+    fetchEvents(weekStartDate).then(events => {
       if (!events) {
         return;
       }
 
-      setAllevents(getCurrentWeekEvents(events, weekStartDate));
+      setAllevents(events);
     });
   }, [weekStartDate]);
 
